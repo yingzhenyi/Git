@@ -276,7 +276,7 @@ public class APCluster {
 	}
 	public static void main(String[] args){
 		APNode testnode = new APNode();
-		testnode.dataInputFromFile("./data/testdata","\t");
+		testnode.dataInputFromFile("./data/winedata",",");
 		testnode.showData();
 		testnode.calculateSimlarity();
 		for(ArrayList<Double> m:testnode.similarity){
