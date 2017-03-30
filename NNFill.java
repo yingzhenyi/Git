@@ -28,9 +28,9 @@ public class NNFill {
 		box.sort(new Comparator<Neighbor>(){
 				public int compare(Neighbor o1, Neighbor o2) {
 					if(o1.similarity>=o2.similarity){
-						return 1;
-					}else{
 						return -1;
+					}else{
+						return 1;
 					}
 				}
 			}
@@ -104,6 +104,7 @@ public class NNFill {
 		}
 	}
 	public int fill(Incomplete node){
+		sort();
 		fillNum(node);
 		fillCla(node);
 		node.miss = 0;

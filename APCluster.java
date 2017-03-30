@@ -163,8 +163,8 @@ public class APCluster {
 				count++;
 			}
 //			showMatrix();
-			System.out.println(exemplar);
-			System.out.println("iter " + i +" complete");
+//			System.out.println(exemplar);
+//			System.out.println("iter " + i +" complete");
 		}
 		distributeNodes();
 	}
@@ -279,16 +279,16 @@ public class APCluster {
 		testnode.dataInputFromFile("./data/winedata",",");
 		testnode.showData();
 		testnode.calculateSimlarity();
-		for(ArrayList<Double> m:testnode.similarity){
-			System.out.println(m);
-		}
+//		for(ArrayList<Double> m:testnode.similarity){
+//			System.out.println(m);
+//		}
 		APCluster test = new APCluster(testnode,0.5,50,500,5);
 		test.clustering();
-		test.showMatrix();
-		test.printDistributeResult();
+//		test.showMatrix();
+//		test.printDistributeResult();
 		test.incrementalClustering();
 		testnode.showData();
-		test.showMatrix();
-		test.printDistributeResult();
+//		test.showMatrix();
+//		test.printDistributeResult();
 	}
 }

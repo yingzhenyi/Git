@@ -11,32 +11,37 @@ import java.util.LinkedList;
 
 public class APNode {
 	class Incomplete{
+		int index; // 元组标号
 		ArrayList<Double> numData;
 		ArrayList<String> claData;
 		int miss;
-		public Incomplete(ArrayList<Double> numData, ArrayList<String> claData, int miss) {
+		public Incomplete(int index, ArrayList<Double> numData, ArrayList<String> claData, int miss) {
 			super();
+			this.index = index;
 			this.numData = numData;
 			this.claData = claData;
 			this.miss = miss;
 		}
 		@Override
 		public String toString() {
-			return "Incomplete [numData=" + numData + ", claData=" + claData + ", miss=" + miss + "]";
+			return "Incomplete [index=" + index + ", numData=" + numData + ", claData=" + claData + ", miss=" + miss
+					+ "]";
 		}
 		
 	}
 	class Complete{
+		int index; // 元组标号
 		ArrayList<Double> numData;
 		ArrayList<String> claData;
-		public Complete(ArrayList<Double> numData, ArrayList<String> claData) {
+		public Complete(int index, ArrayList<Double> numData, ArrayList<String> claData) {
 			super();
+			this.index = index;
 			this.numData = numData;
 			this.claData = claData;
 		}
 		@Override
 		public String toString() {
-			return "Complete [numData=" + numData + ", claData=" + claData + "]";
+			return "Complete [index=" + index + ", numData=" + numData + ", claData=" + claData + "]";
 		}
 		
 	}
@@ -71,6 +76,7 @@ public class APNode {
           			CN++;
           		}
 			}
+			int count=1;
           	while((linedata = bufferedReader.readLine()) != null){
           		ArrayList<Double> numData = NN>0?new ArrayList<Double>():null;
           		ArrayList<String> claData = CN>0?new ArrayList<String>():null;
@@ -92,12 +98,13 @@ public class APNode {
               		}
               	}
               	if(miss>0){
-              		incompleteData.add(new Incomplete(numData,claData,miss));
+              		incompleteData.add(new Incomplete(count++,numData,claData,miss));
               	}else{
-              		completeData.add(new Complete(numData,claData));
+              		completeData.add(new Complete(count++,numData,claData));
               	}
            	}
           	incompleteData.sort((o1,o2)->(o1.miss-o2.miss));
+          	if(NN>0) Tools.getMaxMin(this);
         } catch (Exception e) {
             System.out.println("读取文件内容出错");
             e.printStackTrace();
@@ -105,7 +112,6 @@ public class APNode {
     }
 	public void calculateSimlarity(){
 		int num = completeData.size();
-		if(NN>0) Tools.getMaxMin(this);
 		for(int i=0; i<num; i++){
 			ArrayList<Double> s = new ArrayList<>();
 			for(int j=0; j<num; j++){
@@ -129,7 +135,7 @@ public class APNode {
 		while(!incompleteData.isEmpty()&&incompleteData.getFirst().miss==0){
 			Incomplete tmp = incompleteData.removeFirst();
 			updateSimilarity(tmp);
-			completeData.add(new Complete(tmp.numData, tmp.claData));
+			completeData.add(new Complete(tmp.index,tmp.numData, tmp.claData));
 		}
 	}
 	public void showData(){
